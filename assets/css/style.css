@@ -1,0 +1,77 @@
+body, html{
+    background-color: rgb(162, 149, 135);
+    height: 100% !important;
+    width: auto;
+    padding: 0;
+    margin: 0;
+}
+
+.navBar{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    background-color: rgb(132, 108, 91);
+}
+
+h1 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-color: rgb(132, 108, 91);  
+    color: rgb(196, 178, 188);
+    font-size: xx-large !important;
+    font-weight: bolder !important;
+    width: 80%;
+}
+
+a{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-color: rgb(132, 108, 91);
+    color: rgb(196, 178, 188) !important;
+    font-size: x-large !important;
+    float: right;   
+    width: 20%;
+}
+
+.resultsArea{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.searchContainer{
+    height: auto;
+    width: 30%
+    
+}
+
+.categoriesBox{
+    font-size: large;
+    font-weight: bold;
+}
+
+.resultsContainer{
+    display: flex;
+   height: auto;
+    width: 50%;
+    float: right;
+  
+
+}
+
+.resultsBar{
+   font-size: large;
+    font-weight: 500;   
+}
+
+.recipeResults{
+    font-size: medium;
+    font-weight: 300;
+    color: rgb(132, 108, 91);
+    width: 70%;
+}
+
+.saveBtn{
+    width: 10%;
+    justify-content: space-between;
+}
