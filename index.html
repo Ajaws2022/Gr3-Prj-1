@@ -1,12 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <title>Document</title>
 </head>
+ <nav class="navBar">
+            <h1> Recipe Generator </h1>
+            <a class="navbar-item"> Saved Recipes </a>
+    </nav>
 <body>
     /*drop down for categories; videos, articles, both*/
+    <section class="resultsArea">
+        <div class="searchContainer">
+            <input class="input" type="text" placeholder="Pasta">
+            <div class="categoriesBox">
+                <p class="searchQuestion"> What kind of Results were you looking for? </p>
+                <label class="videosCheckBox">
+                    <input type="checkbox">
+                    Videos
+                </label>
+                <label class="articlesCheckBox">
+                    <input type="checkbox">
+                    Articles
+                </label>
+                <label class="bothCheckBox">
+                 <input type="checkbox">
+                    Include Both
+                </label>
+                <div class="searchBtn" id="searchButton">
+                    <button class="button is-success"> Search </button>
+                </div>
+            </div>
+        </div>
+        <div class="resultsContainer">
+            <div class="resultsBar">
+                <p> Results </p>
+              </div> 
+                <div class="recipeResults"> Recipes will appear here.</div> <button class="saveBtn">Save Recipe</button>
+        </div>
+    </section>
+
 </body>
+
 </html>
