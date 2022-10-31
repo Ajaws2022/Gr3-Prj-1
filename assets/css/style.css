@@ -1,0 +1,23 @@
+.header{
+    width: 100%;
+    height: 200px;
+    text-align: center;
+    
+}
+
+.resultsArea{
+    margin-left: 20px;
+}
+.searchArea{
+    height: 200px;
+}
+
+.hero-image {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    background-image: url("../images/recipe.png");
+}
+
+.rec
