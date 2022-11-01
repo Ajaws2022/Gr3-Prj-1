@@ -8,18 +8,46 @@ const options = {
 
 var searchBTN = document.querySelector('#search')
 
+var inputValue = document.getElementById('recSearch').value
+
+var saveRecipe = document.querySelector('.save')
+
+function getURL(){
+    var key = "53df368d57msh1f4523eee823f73p114681jsn59f031fdad1b"
+    
+
+    var searchURL = 'https://tasty.p.rapidapi.com/recipes/list?from=0&size=20&tags=under_30_minutes,easy&q='+inputValue +'&rapidapi-key='+key
+
+    console.log(inputValue)
+
+    fetch(searchURL, options)
+	.then(response => response.json())
+    // .then(data => console.log(data))
+	// .then(data => console.log(data.results[0].id))
+    .then((data) => getID(data))
+        
+    // add function to display error message
+
+	// .catch(err => console.error(err));
+
+}
+
 function getID(data){
+    let resArea = document.querySelector('.resultsArea')
+    let resultBox = document.createElement('div')
+    resultBox.classList = "resultBox columns is-flex-wrap-wrap"
+
     for(i = 0; i < 10; i++){
 
         const id  = data.results[i].id
         const name = data.results[i].name
         const desc = data.results[i].description
         console.log(id)
-
-        let resultBox = document.querySelector('.resultBox');
+        
         
         let card = document.createElement('div');
         card.className = 'recCard';
+        // card.id = id
         
         card.classList = "recCard card tile is-vertical column is-one-fifth m-3";
         let recName = document.createElement('h3')
@@ -31,35 +59,28 @@ function getID(data){
         card.appendChild(recDesc)
         let saveBtn = document.createElement('button')
         saveBtn.textContent = "Save Recipe"
+        saveBtn.className = "save"
+        saveBtn.id = id
         card.appendChild(saveBtn)
         resultBox.appendChild(card)
+        resArea.appendChild(resultBox)
     }
 }
 
-function getURL(){
-    var key = "53df368d57msh1f4523eee823f73p114681jsn59f031fdad1b"
-    var inputValue = document.getElementById('recSearch').value
-
-    var searchURL = 'https://tasty.p.rapidapi.com/recipes/list?from=0&size=20&tags=under_30_minutes,easy'+'&q='+inputValue +'&rapidapi-key='+key
-
-    console.log(inputValue)
-
-    fetch(searchURL, options)
-	.then(response => response.json())
-    // .then(data => console.log(data))
-	// .then(data => console.log(data.results[0].id))
-    .then((data) => getID(data))
-        
-    
-	// .catch(err => console.error(err));
+function storeRecipe(event){
+    let inputKey = event.target.id
+    let inputValue = this.siblings('h3')
+    console.log(inputKey, inputValue)
+    localStorage.setItem(inputKey, inputValue);
 
 }
 
 function removeRecipes(){
     let remArea= document.querySelector('.resultBox')
-    let remCard = document.getElementsByClassName('recCard')
+    // let remCard = document.getElementsByClassName('recCard')
     console.log(remCard)
-    remArea.childNodes.forEach(remCard => remCard.remove())
+    // remArea.childNodes.forEach(remCard => remCard.remove())
+    remArea.remove();
 }
 
 let timesClicked = 0;
@@ -75,3 +96,9 @@ function clicked(){
 } 
 
 searchBTN.addEventListener('click', clicked)
+// saveRecipe.addEventListener('click', storeRecipe)
+document.addEventListener('click',function(e){
+    if(e.target && e.target.className === 'save'){
+          storeRecipe;
+     }
+ });
