@@ -13,13 +13,13 @@ const options = {
 
 var searchBTN = document.querySelector('#search')
 
-var inputValue = document.getElementById('recSearch').value
+
 
 var saveRecipe = document.querySelector('.save')
 
 function getURL(){
     var key = "53df368d57msh1f4523eee823f73p114681jsn59f031fdad1b"
-    
+    var inputValue = document.getElementById('recSearch').value
 
     var searchURL = 'https://tasty.p.rapidapi.com/recipes/list?from=0&size=20&tags=under_30_minutes,easy&q='+inputValue +'&rapidapi-key='+key
 
@@ -40,10 +40,10 @@ function getURL(){
 function getID(data){
     let resArea = document.querySelector('.resultsArea')
     let resultBox = document.createElement('div')
-    resultBox.classList = "resultBox columns is-flex-wrap-wrap"
+    resultBox.classList = "resultBox columns is-flex-wrap-wrap is-half"
 
     for(i = 0; i < 10; i++){
-
+        //change
         const id  = data.results[i].id
         const name = data.results[i].name
         const desc = data.results[i].description
@@ -54,21 +54,21 @@ function getID(data){
         card.className = 'recCard';
         // card.id = id
         
-        card.classList = "recCard card tile is-vertical column is-one-fifth m-3";
+        card.classList = "recCard card tile is-vertical column is-one-third m-3";
         let recName = document.createElement('h3')
         recName.classList = "is-size-3"
         recName.innerHTML = name;
         card.appendChild(recName)
         let recDesc = document.createElement('p')
-        recDesc.innerHTML = desc;
-        card.appendChild(recDesc)
-        let saveBtn = document.createElement('button')
+        recDesc.innerHTML = desc;//change to recip container
+        card.appendChild(recDesc)//change
+        let saveBtn = document.createElement('button') 
         let atag = document.createElement('a')
         atag.textContent = "Save Recipe"
         atag.setAttribute('href','./assets/page2.html')
         saveBtn.className = "save"
-        saveBtn.onclick = storeRecipe
-        saveBtn.id = id
+        saveBtn.onclick = storeRecipe//change
+        saveBtn.id = id//change
         saveBtn.appendChild(atag)
         card.appendChild(saveBtn)
         resultBox.appendChild(card)
@@ -80,7 +80,7 @@ function storeRecipe(event){
     let inputKey = event.target.id
     console.log(event.target.previousElementSibling.previousElementSibling)
     let inputValue = event.target.previousElementSibling.previousElementSibling.innerHTML
-    // console.log(inputKey, inputValue)
+    console.log(inputKey, inputValue)
     localStorage.setItem(inputKey, inputValue);
 
 }
@@ -93,6 +93,71 @@ function removeRecipes(){
     remArea.remove();
 }
 
+
+
+
+//kim's code*******************************************************************************************
+
+function getVideos() {
+  //added line below to erase previous search  
+  // recipeContatiner.innerHTML = ' '
+  var input = document.getElementById("recSearch").value;
+  console.log(input);
+  var getUrl2 =
+    "https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelType=any&order=videoCount&q=recipe" +
+    input +
+    "&type=video&key=AIzaSyAy5NFzhSUlB1PosqxAdouH6vcd1wMT3ZQ";
+  console.log(getUrl2);
+
+  fetch(getUrl2)
+    .then((response) => response.json())
+    .then((data) => getVidID(data))
+}
+
+function getVidID(data){
+  let resArea = document.querySelector('.resultsArea')
+  let resultBox = document.createElement('div')
+  resultBox.classList = "resultBox columns is-flex-wrap-wrap is-half"
+  
+  for(i = 0; i < 10; i++){
+      //change
+      link = 'https://www.youtube.com/watch?v=' + data.items[i].id.videoId;
+      image = data.items[i].snippet.thumbnails.default.url;
+      // link.appendChild(image)
+
+    
+      const title = data.items[i].snippet.title;
+    
+      // console.log(id)
+            
+      let card = document.createElement('div');
+      card.className = 'recCard';
+      // card.id = id
+      
+      card.classList = "recCard card tile is-vertical column is-three-quarters m-3";
+      let recName = document.createElement('h3')
+      recName.classList = "is-size-3 is-flex-wrap-wrap"
+      recName.innerHTML = title;
+      card.appendChild(recName)
+      let recDesc = document.createElement('p')
+      recDesc.innerHTML = link;
+      card.appendChild(recDesc)//change
+      let videoImage = document.createElement('p')
+      videoImage.innerHTML = image;
+      let saveBtn = document.createElement('button') 
+      let atag = document.createElement('a')
+      atag.textContent = "Save Recipe"
+      atag.setAttribute('href','./assets/page2.html')
+      saveBtn.className = "save"
+      saveBtn.onclick = getVideos//change
+      saveBtn.id = link;//change
+      saveBtn.appendChild(atag)
+      card.appendChild(saveBtn)
+      resultBox.appendChild(card)
+      resArea.appendChild(resultBox)
+    }
+}
+
 let timesClicked = 0;
 
 function clicked(){
@@ -102,6 +167,7 @@ function clicked(){
     getURL();
  }else {
     getURL();
+    getVideos();
  }
 } 
 
@@ -114,4 +180,3 @@ document.addEventListener('click',function(e){
  });
 
 
-//kim's code
