@@ -6,13 +6,16 @@ const options = {
 	}
 };
 
+let recAmount = JSON.parse(localStorage.getItem("recipes"))||[];
+
 var searchBTN = document.querySelector('#search')
 
 var savedRecipes = document.getElementById('savedRecipes')
 
-savedRecipes.onclick = function(){
-    location.href = "page2.html"
-}
+// savedRecipes.onclick = function(event){
+//     console.log(event)
+//     // location.href = "page2.html"
+// }
 var saveRecipe = document.querySelector('.save')
 
 function getURL(){
@@ -65,7 +68,7 @@ function getID(data){
         let saveBtn = document.createElement('button')
         saveBtn.textContent = "Save Recipe"
         saveBtn.className = "save"
-        saveBtn.id = "recipe";
+        saveBtn.setAttribute("value", id)
         saveBtn.onclick = storeRecipe;
         card.appendChild(saveBtn)
         resultBox.appendChild(card)
@@ -74,15 +77,21 @@ function getID(data){
     
 }
 
-let recAmount = [];
-
 function storeRecipe(event){
-    let inputKey = 'recipes';
-    console.log(event.target.previousElementSibling.previousElementSibling)
-    let inputValue = event.target.previousElementSibling.previousElementSibling.id
-    recAmount.push(inputValue)
+    console.log(this)
+
+    let recipeObject = {id:this.value}
+
+    recAmount.push(recipeObject)
+    localStorage.setItem("recipes", JSON.stringify(recAmount));
+    
+    // let inputKey = 'recipes';
+    // console.log(event.target.previousElementSibling.previousElementSibling)
+    // let inputValue = event.target.previousElementSibling.previousElementSibling.id
+
+    // recAmount.push(recipeObject)
+    // console.log(recAmount)
     // console.log(inputKey, inputValue)
-    localStorage.setItem(inputKey, recAmount);
 }
 
 function removeRecipes(){
