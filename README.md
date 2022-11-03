@@ -9,7 +9,7 @@ We have created a website to give users the opportunity to search ingredients, m
 * CSS
 
 # Live Demo 
- [Try our Website Now]
+ [click here](https://ajaws2022.github.io/Gr3-Prj-1/)
  
 # Authors
 * Alex Jaworski
