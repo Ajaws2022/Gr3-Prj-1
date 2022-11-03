@@ -21,6 +21,7 @@ var savedRecipes = document.getElementById('savedRecipes')
 savedRecipes.onclick = function(){
     location.href = "page2.html"
 }
+
 var saveRecipe = document.querySelector('.save')
 
 function getURL(){
@@ -51,7 +52,7 @@ function getID(data){
     resultBox.classList = "resultBox columns is-flex-wrap-wrap is-half"
 
 
-    for(i = 0; i < 10; i++){
+    
         //change
 
     for(i = 0; i < 5; i++){
@@ -76,15 +77,14 @@ function getID(data){
         let recDesc = document.createElement('p')
         recDesc.innerHTML = desc;//change to recip container
         card.appendChild(recDesc)//change
-        let saveBtn = document.createElement('button') 
-        let atag = document.createElement('a')
-        atag.textContent = "Save Recipe"
-        atag.setAttribute('href','./assets/page2.html')
+        let saveBtn = document.createElement('button')
+        saveBtn.innerHTML = 'save'
+        
         saveBtn.className = "save"
 
-        saveBtn.onclick = storeRecipe//change
+        // saveBtn.onclick = storeRecipe//change
         saveBtn.id = id//change
-        saveBtn.appendChild(atag)
+        
 
         saveBtn.id = "recipe";
         saveBtn.onclick = storeRecipe;
@@ -96,13 +96,9 @@ function getID(data){
 }
 
 
-function storeRecipe(event){ 
-    let inputKey = event.target.id
-    console.log(event.target.previousElementSibling.previousElementSibling)
-    let inputValue = event.target.previousElementSibling.previousElementSibling.innerHTML
-    console.log(inputKey, inputValue)
-    localStorage.setItem(inputKey, inputValue);
+
 let recAmount = [];
+
 
 
 function storeRecipe(event){
@@ -168,19 +164,21 @@ function getVidID(data){
       recName.classList = "is-size-3 is-flex-wrap-wrap"
       recName.innerHTML = title;
       card.appendChild(recName)
-      let recDesc = document.createElement('p')
+      let recDesc = document.createElement('a')
       recDesc.innerHTML = link;
+      recDesc.href = link;
       card.appendChild(recDesc)//change
       let videoImage = document.createElement('p')
       videoImage.innerHTML = image;
       let saveBtn = document.createElement('button') 
-      let atag = document.createElement('a')
-      atag.textContent = "Save Recipe"
-      atag.setAttribute('href','./assets/page2.html')
+    //   let atag = document.createElement('a')
+    //   atag.textContent = "Save Recipe"
+    //   atag.setAttribute('href','./assets/page2.html')
       saveBtn.className = "save"
+      saveBtn.innerHTML = 'save'
       saveBtn.onclick = getVideos//change
       saveBtn.id = link;//change
-      saveBtn.appendChild(atag)
+    //   saveBtn.appendChild(atag)
       card.appendChild(saveBtn)
       resultBox.appendChild(card)
       resArea.appendChild(resultBox)
@@ -207,13 +205,6 @@ document.addEventListener('click',function(e){
     if(e.target && e.target.className === 'save'){
           storeRecipe;
      }
- });
+ })
 
-
-
-// document.addEventListener('click',function(e){
-//     if(e.target && e.target.className === 'save'){
-//           storeRecipe;
-//      }
-//  });
 
