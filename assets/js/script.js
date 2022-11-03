@@ -14,13 +14,20 @@ const options = {
 var searchBTN = document.querySelector('#search')
 
 
-// savedRecipes.onclick = function(){
-//     location.href = "page2.html"
-// }
+
+var savedRecipes = document.getElementById('savedRecipes')
+
+
+savedRecipes.onclick = function(){
+    location.href = "page2.html"
+}
+
 var saveRecipe = document.querySelector('.save')
 
 function getURL(){
     var key = "53df368d57msh1f4523eee823f73p114681jsn59f031fdad1b"
+
+
     var inputValue = document.getElementById('recSearch').value
 
     var searchURL = 'https://tasty.p.rapidapi.com/recipes/list?from=0&size=20&tags=under_30_minutes,easy&q='+inputValue +'&rapidapi-key='+key
@@ -45,8 +52,13 @@ function getID(data){
     resultBox.classList = "resultBox columns is-flex-wrap-wrap is-half"
 
 //for loop for API data     
+
     for(i = 0; i < 10; i++){
         //change
+
+    for(i = 0; i < 5; i++){
+
+
         const id  = data.results[i].id
         const name = data.results[i].name
         const desc = data.results[i].description
@@ -71,9 +83,13 @@ function getID(data){
         atag.textContent = "Save Recipe"
         atag.setAttribute('href','./assets/page2.html')
         saveBtn.className = "save"
+
         saveBtn.onclick = storeRecipe//change
         saveBtn.id = id//change
         saveBtn.appendChild(atag)
+
+        saveBtn.id = "recipe";
+        saveBtn.onclick = storeRecipe;
         card.appendChild(saveBtn)
         resultBox.appendChild(card)
         resArea.appendChild(resultBox)
@@ -87,6 +103,17 @@ function getID(data){
 //     let inputValue = event.target.previousElementSibling.previousElementSibling.innerHTML
 //     console.log(inputKey, inputValue)
 //     localStorage.setItem(inputKey, inputValue);
+
+
+function storeRecipe(event){ 
+    let inputKey = event.target.id
+    console.log(event.target.previousElementSibling.previousElementSibling)
+    let inputValue = event.target.previousElementSibling.previousElementSibling.innerHTML
+    console.log(inputKey, inputValue)
+    localStorage.setItem(inputKey, inputValue);
+let recAmount = [];
+
+
 
 function storeRecipe(event){
     let inputKey = 'recipes';
@@ -186,9 +213,9 @@ function clicked(){
 //call api data function through click 
 searchBTN.addEventListener('click', clicked)
 // saveRecipe.addEventListener('click', storeRecipe)
+
 document.addEventListener('click',function(e){
     if(e.target && e.target.className === 'save'){
           storeRecipe;
      }
  });
-
