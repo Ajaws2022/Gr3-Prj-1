@@ -14,7 +14,9 @@ const options = {
 var searchBTN = document.querySelector('#search')
 
 
-
+// savedRecipes.onclick = function(){
+//     location.href = "page2.html"
+// }
 var saveRecipe = document.querySelector('.save')
 
 function getURL(){
@@ -36,12 +38,13 @@ function getURL(){
 	// .catch(err => console.error(err));
 
 }
-
+//function for retrieving info from Tasty API
 function getID(data){
     let resArea = document.querySelector('.resultsArea')
     let resultBox = document.createElement('div')
     resultBox.classList = "resultBox columns is-flex-wrap-wrap is-half"
 
+//for loop for API data     
     for(i = 0; i < 10; i++){
         //change
         const id  = data.results[i].id
@@ -58,6 +61,7 @@ function getID(data){
         let recName = document.createElement('h3')
         recName.classList = "is-size-3"
         recName.innerHTML = name;
+        recName.id = id;
         card.appendChild(recName)
         let recDesc = document.createElement('p')
         recDesc.innerHTML = desc;//change to recip container
@@ -74,21 +78,29 @@ function getID(data){
         resultBox.appendChild(card)
         resArea.appendChild(resultBox)
     }
+    
 }
 
-function storeRecipe(event){ 
-    let inputKey = event.target.id
-    console.log(event.target.previousElementSibling.previousElementSibling)
-    let inputValue = event.target.previousElementSibling.previousElementSibling.innerHTML
-    console.log(inputKey, inputValue)
-    localStorage.setItem(inputKey, inputValue);
+// function storeRecipe(event){ 
+//     let inputKey = event.target.id
+//     console.log(event.target.previousElementSibling.previousElementSibling)
+//     let inputValue = event.target.previousElementSibling.previousElementSibling.innerHTML
+//     console.log(inputKey, inputValue)
+//     localStorage.setItem(inputKey, inputValue);
 
+function storeRecipe(event){
+    let inputKey = 'recipes';
+    console.log(event.target.previousElementSibling.previousElementSibling)
+    let inputValue = event.target.previousElementSibling.previousElementSibling.id
+    recAmount.push(inputValue)
+    // console.log(inputKey, inputValue)
+    localStorage.setItem(inputKey, recAmount);
 }
 
 function removeRecipes(){
     let remArea= document.querySelector('.resultBox')
     // let remCard = document.getElementsByClassName('recCard')
-    console.log(remCard)
+    
     // remArea.childNodes.forEach(remCard => remCard.remove())
     remArea.remove();
 }
@@ -109,11 +121,13 @@ function getVideos() {
     "&type=video&key=AIzaSyAy5NFzhSUlB1PosqxAdouH6vcd1wMT3ZQ";
   console.log(getUrl2);
 
+//fetch Youtube API  
   fetch(getUrl2)
     .then((response) => response.json())
     .then((data) => getVidID(data))
 }
 
+// for loop function that calls Youtube API 
 function getVidID(data){
   let resArea = document.querySelector('.resultsArea')
   let resultBox = document.createElement('div')
@@ -124,23 +138,21 @@ function getVidID(data){
       link = 'https://www.youtube.com/watch?v=' + data.items[i].id.videoId;
       image = data.items[i].snippet.thumbnails.default.url;
       // link.appendChild(image)
-
     
       const title = data.items[i].snippet.title;
-    
-      // console.log(id)
             
       let card = document.createElement('div');
       card.className = 'recCard';
-      // card.id = id
-      
+     
+      //Element creation for data pulled from the API
       card.classList = "recCard card tile is-vertical column is-three-quarters m-3";
       let recName = document.createElement('h3')
       recName.classList = "is-size-3 is-flex-wrap-wrap"
       recName.innerHTML = title;
       card.appendChild(recName)
-      let recDesc = document.createElement('p')
+      let recDesc = document.createElement('a')
       recDesc.innerHTML = link;
+      recDesc.href = link;
       card.appendChild(recDesc)//change
       let videoImage = document.createElement('p')
       videoImage.innerHTML = image;
@@ -158,6 +170,7 @@ function getVidID(data){
     }
 }
 
+//remove data when searching new input+
 let timesClicked = 0;
 
 function clicked(){
@@ -170,7 +183,7 @@ function clicked(){
     getVideos();
  }
 } 
-
+//call api data function through click 
 searchBTN.addEventListener('click', clicked)
 // saveRecipe.addEventListener('click', storeRecipe)
 document.addEventListener('click',function(e){
@@ -178,5 +191,4 @@ document.addEventListener('click',function(e){
           storeRecipe;
      }
  });
-
 
